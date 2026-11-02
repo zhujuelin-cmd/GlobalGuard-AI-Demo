@@ -1,0 +1,1 @@
+{"name":"bluefocus-globalguard-demo","version":"4.0.0","private":true,"type":"module","scripts":{"build":"tailwindcss -i utilities.css -o tailwind.generated.css --minify && node build.mjs","test":"node tests.mjs"},"devDependencies":{"tailwindcss":"3.4.17","jsdom":"26.1.0"}}

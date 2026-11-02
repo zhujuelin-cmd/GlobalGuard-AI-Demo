@@ -1,0 +1,12 @@
+import {readFile,writeFile,mkdir} from 'node:fs/promises';
+const html=await readFile(new URL('./index.html',import.meta.url),'utf8');
+const utilities=await readFile(new URL('./tailwind.generated.css',import.meta.url),'utf8');
+const engine=await readFile(new URL('./data-engine.js',import.meta.url),'utf8');
+const dataStyle=await readFile(new URL('./data-ui.css',import.meta.url),'utf8');
+await mkdir(new URL('./dist/',import.meta.url),{recursive:true});
+const output=html.replace('<style>',`<style>\n${utilities}\n</style>\n<style>`).replace('<script src="data-engine.js"></script>',`<script>\n${engine}\n</script>`).replace('<link rel="stylesheet" href="data-ui.css">',`<style>\n${dataStyle}\n</style>`);
+const landing=await readFile(new URL('./landing.js',import.meta.url),'utf8');
+const landingStyle=await readFile(new URL('./landing.css',import.meta.url),'utf8');
+const finalOutput=output.replace('<script src="landing.js"></script>',`<script>\n${landing}\n</script>`).replace('<link rel="stylesheet" href="landing.css">',`<style>\n${landingStyle}\n</style>`);
+await writeFile(new URL('./dist/index.html',import.meta.url),finalOutput);
+console.log('Built standalone dist/index.html — V4 narrative landing, transition and decision dashboard included.');

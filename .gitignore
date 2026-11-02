@@ -1,0 +1,8 @@
+node_modules/
+.venv/
+__pycache__/
+.pytest_cache/
+*.py[cod]
+dist/*
+!dist/index.html
+tailwind.generated.css
